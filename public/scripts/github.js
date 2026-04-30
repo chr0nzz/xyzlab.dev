@@ -32,6 +32,16 @@ const REPOS = [
     featured: false,
   },
   {
+    slug: 'jellyfin-widget-proxy',
+    displayName: 'jellyfin-widget-proxy',
+    icon: null,
+    desc: 'Lightweight proxy server that fetches Jellyfin data for use in dashboards and Homepage widgets.',
+    features: ['jellyfin API', 'homepage widget', 'lightweight', 'docker native'],
+    badges: ['stable'],
+    links: { github: 'https://github.com/chr0nzz/jellyfin-widget-proxy' },
+    featured: false,
+  },
+  {
     slug: 'ntfy-adapter',
     displayName: 'ntfy-adapter',
     icon: null,
@@ -57,10 +67,12 @@ const REPOS = [
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
 
+const GH_TOKEN = document.querySelector('meta[name="gh-token"]')?.content || '';
+
 async function ghFetch(path) {
-  const res = await fetch(`${GH}${path}`, {
-    headers: { Accept: 'application/vnd.github.v3+json' },
-  });
+  const headers = { Accept: 'application/vnd.github.v3+json' };
+  if (GH_TOKEN) headers['Authorization'] = `Bearer ${GH_TOKEN}`;
+  const res = await fetch(`${GH}${path}`, { headers });
   if (!res.ok) throw new Error(`GitHub API ${path} → ${res.status}`);
   return res.json();
 }
@@ -89,6 +101,34 @@ function el(tag, attrs = {}, ...children) {
     else if (child) e.appendChild(child);
   }
   return e;
+}
+
+// ─── Version Badges ──────────────────────────────────────────────────────────
+
+async function loadVersions() {
+  await Promise.all(
+    REPOS.map(async r => {
+      const container = document.querySelector(`[data-repo-badges="${r.slug}"]`);
+      if (!container) return;
+      try {
+        const releases = await ghFetch(`/repos/${USER}/${r.slug}/releases?per_page=10`);
+        const latest = releases.find(r => !r.prerelease);
+        const pre = releases.find(r => r.prerelease);
+        if (latest) {
+          const b = document.createElement('span');
+          b.className = 'badge version';
+          b.textContent = latest.tag_name;
+          container.appendChild(b);
+        }
+        if (pre) {
+          const b = document.createElement('span');
+          b.className = 'badge prerelease';
+          b.textContent = `${pre.tag_name} pre`;
+          container.appendChild(b);
+        }
+      } catch {}
+    })
+  );
 }
 
 // ─── Stats Bar ───────────────────────────────────────────────────────────────
@@ -345,6 +385,7 @@ function typewriter(el, lines, speed = 38) {
 
 document.addEventListener('DOMContentLoaded', () => {
   loadStats();
+  loadVersions();
   loadContribGraph();
   loadCommits();
   loadIssues();
