@@ -140,7 +140,7 @@ async function loadContribGraph() {
 
     const totalContribs = data.total?.lastYear || data.contributions.reduce((a, d) => a + d.count, 0);
     const countEl = document.getElementById('contrib-count');
-    if (countEl) countEl.textContent = `${totalContribs} contributions this year`;
+    if (countEl) countEl.textContent = totalContribs;
 
     wrap.innerHTML = '';
     const graph = el('div', { style: 'display:flex;gap:3px;overflow-x:auto;padding-bottom:4px' });
