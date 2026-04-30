@@ -3,7 +3,6 @@
   const body = document.getElementById('term-body');
   const input = document.getElementById('term-input');
   const typedEl = document.getElementById('term-typed');
-  const cursorEl = document.getElementById('term-cursor');
   if (!term || !body || !input) return;
 
   let history = [], histIdx = -1, locked = false;
@@ -48,15 +47,6 @@
 
   function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-  async function typeLines(lines) {
-    lock();
-    for (const l of lines) {
-      await delay(l.pause || 60);
-      if (l.type === 'blank') { blank(); continue; }
-      print(l.text || '', l.cls || '');
-    }
-    unlock();
-  }
 
   // ─── Commands ─────────────────────────────────────────────────────────────
 
@@ -69,7 +59,7 @@
         ['help',      'show this message'],
         ['whoami',    'about chr0nzz'],
         ['ls',        'list projects'],
-        ['open &lt;name&gt;', 'scroll to a project card'],
+        ['open [name]', 'scroll to a project card'],
         ['install',   'mock traefik-stack installer'],
         ['neofetch',  'system info'],
         ['docker ps', 'show running containers'],
@@ -283,7 +273,7 @@
           const def = a.mode === 'full' ? '~/traefik-stack' : '~/traefik-manager';
           return val.trim() || def;
         },
-        next(val, a) { return a.mode === 'full' ? 'deploy-type' : (a['deploy-method'] === 'native' ? 'port' : 'network'); },
+        next(_val, a) { return a.mode === 'full' ? 'deploy-type' : (a['deploy-method'] === 'native' ? 'port' : 'network'); },
       },
       {
         id: 'deploy-type',
