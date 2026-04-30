@@ -595,18 +595,37 @@
   @media (max-width: 600px) {
     .stats-row { grid-template-columns: 1fr 1fr; }
     .stat:nth-child(2) { border-right: none; }
-    .apps-grid { grid-template-columns: 1fr; }
-    .wide-card { grid-column: span 1; }
     .issues-grid { grid-template-columns: 1fr; }
     .nav-links a:not(.nav-badge) { display: none; }
+
     .terminal { padding: 10px 12px; }
     .term-body { height: 220px; }
     :global(.term-line) { font-size: 11px; line-height: 1.7; }
     .term-input-row { font-size: 11px; }
-    .screenshot { height: 64px; }
-    .lightbox-prev { left: 8px; }
-    .lightbox-next { right: 8px; }
-    .install-block { flex-wrap: wrap; }
+
+    .apps-grid { grid-template-columns: 1fr; gap: 10px; }
+    .wide-card { grid-column: span 1; }
+    .app-card { padding: 14px; }
+    .app-top { margin-bottom: 10px; }
+    .app-badges { gap: 4px; flex-wrap: wrap; max-width: 60%; }
+    .badge { font-size: 9px; padding: 2px 6px; }
+    :global(.badge.version), :global(.badge.prerelease) { font-size: 9px; padding: 2px 6px; }
+    .app-name { font-size: 14px; margin-bottom: 4px; }
+    .app-desc { font-size: 12px; margin-bottom: 12px; }
+    .app-features { grid-template-columns: 1fr 1fr; gap: 5px; margin-bottom: 12px; }
+    .feat { font-size: 11px; }
+    .app-screenshots { display: none; }
+    .app-desc { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .app-footer { padding-top: 10px; gap: 8px; }
+    .app-stat { font-size: 10px; }
+    .app-links { gap: 6px; }
+    .app-link { font-size: 10px; padding: 3px 8px; }
+    .install-block { padding: 6px 10px; margin-top: 10px; }
+    .install-cmd { font-size: 10px; }
+    .copy-btn { font-size: 9px; }
+
+    .lightbox-prev { left: 8px; padding: 6px 10px; font-size: 22px; }
+    .lightbox-next { right: 8px; padding: 6px 10px; font-size: 22px; }
   }
 
   .lightbox {
