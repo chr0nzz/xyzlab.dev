@@ -1,0 +1,526 @@
+---
+// src/pages/index.astro
+// xyzlab.dev - chr0nzz's app portfolio
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Self-hosted, open source developer tools by chr0nzz. Traefik Manager, Pulse, and more." />
+  <title>xyzlab.dev</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="stylesheet" href="/styles/global.css" />
+</head>
+
+<body>
+
+<!-- ─── Nav ──────────────────────────────────────────────────────────────────── -->
+<nav class="nav">
+  <a href="/" class="nav-logo mono">xyz<span class="accent">lab</span>.dev</a>
+  <div class="nav-links">
+    <a href="#apps">apps</a>
+    <a href="#activity">activity</a>
+    <a href="#issues">issues</a>
+    <a
+      href="https://github.com/chr0nzz"
+      target="_blank"
+      rel="noopener"
+      class="nav-badge mono"
+    >
+      chr0nzz ↗
+    </a>
+  </div>
+</nav>
+
+<!-- ─── Hero ─────────────────────────────────────────────────────────────────── -->
+<section class="hero">
+  <div class="hero-tag mono">// self-hosted. open source. no nonsense.</div>
+
+  <h1 class="hero-title">
+    apps built for people<br />
+    who <strong>run their own stuff</strong>
+  </h1>
+
+  <p class="hero-sub">
+    Developer tools for your home server. Docker-native, open source, no cloud required.
+  </p>
+
+  <div class="terminal">
+    <div class="terminal-bar">
+      <div class="dot r"></div>
+      <div class="dot y"></div>
+      <div class="dot g"></div>
+      <span class="terminal-title mono">bash - xyzlab.dev</span>
+    </div>
+    <div class="term-line">
+      <span class="term-prompt">$</span>
+      <span class="term-cmd"> curl -fsSL https://get-traefik.xyzlab.dev | bash</span>
+    </div>
+    <div class="term-line term-out">  pulling traefik-manager:latest...</div>
+    <div class="term-line term-out">  generating docker-compose.yml</div>
+    <div class="term-line term-out">  generating traefik.yml</div>
+    <div class="term-line term-success">  done. visit http://localhost:5000</div>
+    <div class="term-line">
+      <span class="term-prompt">$</span>
+      <span class="cursor"></span>
+    </div>
+  </div>
+
+  <div class="hero-ctas">
+    <a href="#apps" class="btn-primary">browse apps</a>
+    <a href="https://github.com/chr0nzz" target="_blank" rel="noopener" class="btn-secondary mono">
+      github.com/chr0nzz ↗
+    </a>
+  </div>
+</section>
+
+<!-- ─── Stats Bar ─────────────────────────────────────────────────────────────── -->
+<div class="stats-row">
+  <div class="stat">
+    <div class="stat-val mono">3<span class="accent">+</span></div>
+    <div class="stat-label">open source apps</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val mono"><span data-stat="stars">…</span><span class="accent">★</span></div>
+    <div class="stat-label">total github stars</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val mono"><span data-stat="forks">…</span></div>
+    <div class="stat-label">forks</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val mono" id="contrib-count">…</div>
+    <div class="stat-label">contributions this year</div>
+  </div>
+</div>
+
+<!-- ─── Apps ─────────────────────────────────────────────────────────────────── -->
+<section class="section" id="apps">
+  <div class="section-header">
+    <span class="section-title mono">// apps</span>
+    <div class="section-line"></div>
+    <span class="section-count mono">4 projects</span>
+  </div>
+
+  <div class="apps-grid">
+
+    <!-- Traefik Manager (featured, wide) -->
+    <div class="app-card featured wide-card">
+      <div class="app-top">
+        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/icon.png" class="app-icon-img" alt="Traefik Manager icon" />
+        <div class="app-badges">
+          <span class="badge green">stable</span>
+          <span class="badge gray">github</span>
+        </div>
+      </div>
+      <div class="app-name">Traefik Manager</div>
+      <div class="app-desc">
+        Web UI for managing your Traefik instance. Live dashboard, TLS certs, access logs, plugins - all from your browser.
+      </div>
+      <div class="app-features" style="grid-template-columns: repeat(3, 1fr)">
+        <div class="feat"><div class="feat-dot"></div>live dashboard</div>
+        <div class="feat"><div class="feat-dot"></div>TLS cert viewer</div>
+        <div class="feat"><div class="feat-dot"></div>access log stream</div>
+        <div class="feat"><div class="feat-dot"></div>plugin viewer</div>
+        <div class="feat"><div class="feat-dot"></div>auto backups</div>
+        <div class="feat"><div class="feat-dot"></div>OIDC / SSO</div>
+      </div>
+      <div class="app-footer">
+        <span class="app-stat mono"><strong data-repo-stars="traefik-manager">…</strong> ★</span>
+        <div class="app-links">
+          <a href="https://github.com/chr0nzz/traefik-manager#readme" target="_blank" rel="noopener" class="app-link mono">docs ↗</a>
+          <a href="https://github.com/chr0nzz/traefik-manager" target="_blank" rel="noopener" class="app-link mono">github ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Traefik Manager Mobile -->
+    <div class="app-card">
+      <div class="app-top">
+        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/icon.png" class="app-icon-img" alt="Traefik Manager Mobile icon" />
+        <div class="app-badges">
+          <span class="badge amber">beta</span>
+          <span class="badge blue">play store</span>
+        </div>
+      </div>
+      <div class="app-name">Traefik Manager Mobile</div>
+      <div class="app-desc">
+        React Native companion app for Traefik Manager. Browse routes, middlewares, and services from your phone.
+      </div>
+      <div class="app-features">
+        <div class="feat"><div class="feat-dot"></div>browse routes</div>
+        <div class="feat"><div class="feat-dot"></div>enable / disable</div>
+        <div class="feat"><div class="feat-dot"></div>middleware editor</div>
+        <div class="feat"><div class="feat-dot"></div>dark / light theme</div>
+      </div>
+      <div class="app-footer">
+        <span class="app-stat mono"><strong data-repo-stars="traefik-manager-mobile">…</strong> ★</span>
+        <div class="app-links">
+          <a href="https://github.com/chr0nzz/traefik-manager-mobile" target="_blank" rel="noopener" class="app-link mono">github ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- ntfy-adapter -->
+    <div class="app-card">
+      <div class="app-top">
+        <div class="app-icon">🔔</div>
+        <div class="app-badges">
+          <span class="badge green">stable</span>
+        </div>
+      </div>
+      <div class="app-name">ntfy-adapter</div>
+      <div class="app-desc">
+        Docker adapter bridging ntfy notifications into Homepage's customapi widget as a live dynamic list.
+      </div>
+      <div class="app-features">
+        <div class="feat"><div class="feat-dot"></div>ntfy integration</div>
+        <div class="feat"><div class="feat-dot"></div>homepage widget</div>
+        <div class="feat"><div class="feat-dot"></div>priority expiry</div>
+        <div class="feat"><div class="feat-dot"></div>docker native</div>
+      </div>
+      <div class="app-footer">
+        <span class="app-stat mono"><strong data-repo-stars="ntfy-adapter">…</strong> ★</span>
+        <div class="app-links">
+          <a href="https://github.com/chr0nzz/ntfy-adapter" target="_blank" rel="noopener" class="app-link mono">github ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- traefik-stack (wide) -->
+    <div class="app-card wide-card">
+      <div class="app-top">
+        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/icon.png" class="app-icon-img" alt="traefik-stack icon" />
+        <div class="app-badges">
+          <span class="badge green">new</span>
+        </div>
+      </div>
+      <div class="app-name">traefik-stack</div>
+      <div class="app-desc">
+        One-command installer that sets up Traefik + Traefik Manager via an interactive bash script.
+        Generates <code class="inline-code">docker-compose.yml</code> and <code class="inline-code">traefik.yml</code> from your answers.
+      </div>
+      <div class="app-features" style="grid-template-columns: repeat(4, 1fr)">
+        <div class="feat"><div class="feat-dot"></div>one command</div>
+        <div class="feat"><div class="feat-dot"></div>interactive setup</div>
+        <div class="feat"><div class="feat-dot"></div>config generation</div>
+        <div class="feat"><div class="feat-dot"></div>docker compose</div>
+      </div>
+      <div class="app-footer">
+        <code class="install-cmd mono">curl -fsSL https://get-traefik.xyzlab.dev | bash</code>
+        <div class="app-links">
+          <a href="https://github.com/chr0nzz/traefik-stack" target="_blank" rel="noopener" class="app-link mono">github ↗</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── Activity ──────────────────────────────────────────────────────────────── -->
+<section class="section" id="activity">
+  <div class="section-header">
+    <span class="section-title mono">// commit activity</span>
+    <div class="section-line"></div>
+    <span class="section-count mono" id="contrib-count-inline">loading…</span>
+  </div>
+
+  <!-- Contribution graph injected by github.js -->
+  <div id="contrib-graph" style="min-height: 120px">
+    <div class="skeleton" style="height: 104px; width: 100%"></div>
+  </div>
+
+  <!-- Recent commits -->
+  <div style="margin-top: 28px">
+    <div class="section-header" style="margin-bottom: 12px">
+      <span class="section-title mono" style="font-size: 11px">recent commits</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="term-window">
+      <div class="term-bar">
+        <span class="term-dot" style="background:#ff5f57"></span>
+        <span class="term-dot" style="background:#febc2e"></span>
+        <span class="term-dot" style="background:#28c840"></span>
+        <span class="term-bar-cmd mono">git log --all --oneline</span>
+      </div>
+      <div id="commits-list" class="commits-list">
+        {Array.from({ length: 4 }).map(() => (
+          <div class="commit-item">
+            <span class="commit-prompt mono">$</span>
+            <div class="skeleton" style="width: 60px; height: 13px; flex-shrink: 0; margin-top: 1px"></div>
+            <div class="skeleton" style="width: 110px; height: 13px; flex-shrink: 0; margin-top: 1px"></div>
+            <div class="skeleton" style="flex: 1; height: 13px; margin-top: 1px"></div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── Issues ────────────────────────────────────────────────────────────────── -->
+<section class="section" id="issues">
+  <div class="section-header">
+    <span class="section-title mono">// open issues</span>
+    <div class="section-line"></div>
+    <a
+      href="https://github.com/chr0nzz"
+      target="_blank"
+      rel="noopener"
+      class="section-count mono"
+      style="color: var(--accent)"
+    >
+      <span id="issues-count">loading…</span>
+    </a>
+  </div>
+
+  <div id="issues-grid" class="issues-grid">
+    <!-- Skeletons -->
+    {Array.from({ length: 4 }).map(() => (
+      <div class="issue-item">
+        <div style="display: flex; gap: 8px; margin-bottom: 8px">
+          <div class="skeleton" style="width: 32px; height: 16px"></div>
+          <div class="skeleton" style="width: 70px; height: 16px"></div>
+        </div>
+        <div class="skeleton" style="width: 90%; height: 16px; margin-bottom: 8px"></div>
+        <div class="skeleton" style="width: 60%; height: 12px"></div>
+      </div>
+    ))}
+  </div>
+</section>
+
+<!-- ─── Footer ────────────────────────────────────────────────────────────────── -->
+<footer class="footer">
+  <div class="footer-left mono">xyz<span class="accent">lab</span>.dev - built by chr0nzz</div>
+  <div class="footer-right">runs on cloudflare pages · open source</div>
+</footer>
+
+</body>
+</html>
+
+<style>
+  /* Layout */
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 28px;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(11, 13, 15, 0.85);
+    backdrop-filter: blur(12px);
+    z-index: 10;
+  }
+  .nav-logo { font-size: 14px; font-weight: 700; }
+  .nav-links { display: flex; gap: 20px; align-items: center; }
+  .nav-links a { font-size: 13px; color: var(--text-secondary); transition: color 0.15s; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-badge {
+    font-size: 11px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    padding: 4px 10px;
+    border-radius: var(--radius-sm);
+    color: var(--text-secondary);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .nav-badge:hover { border-color: var(--border-hover); color: var(--text); }
+
+  /* Hero */
+  .hero { padding: 56px 28px 44px; border-bottom: 1px solid var(--border); }
+  .hero-tag { font-size: 11px; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 14px; }
+  .hero-title { font-size: clamp(28px, 4vw, 42px); font-weight: 300; line-height: 1.15; margin-bottom: 16px; letter-spacing: -0.02em; }
+  .hero-title strong { font-weight: 600; }
+  .hero-sub { font-size: 15px; color: var(--text-secondary); max-width: 420px; line-height: 1.6; margin-bottom: 28px; }
+
+  /* Terminal */
+  .terminal {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 14px 18px;
+    max-width: 540px;
+    margin-bottom: 28px;
+  }
+  .terminal-bar { display: flex; gap: 6px; margin-bottom: 12px; align-items: center; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; }
+  .dot.r { background: #ef4444; }
+  .dot.y { background: #f59e0b; }
+  .dot.g { background: #22c55e; }
+  .terminal-title { font-size: 11px; color: var(--text-tertiary); margin-left: auto; }
+  .term-line { font-family: var(--font-mono); font-size: 12.5px; line-height: 1.9; }
+  .term-prompt { color: var(--accent); }
+  .term-cmd { color: var(--text); }
+  .term-out { color: var(--text-tertiary); }
+  .term-success { color: var(--accent); }
+  .cursor {
+    display: inline-block; width: 8px; height: 14px;
+    background: var(--accent); vertical-align: middle;
+    animation: blink 1.1s step-end infinite;
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+  /* CTAs */
+  .hero-ctas { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-primary {
+    font-family: var(--font-mono); font-size: 12px;
+    background: var(--accent); color: #052e16;
+    padding: 10px 20px; border-radius: var(--radius-md);
+    font-weight: 700; border: none; transition: opacity 0.15s;
+  }
+  .btn-primary:hover { opacity: 0.88; }
+  .btn-secondary {
+    font-family: var(--font-mono); font-size: 12px;
+    background: transparent; color: var(--text-secondary);
+    padding: 10px 20px; border-radius: var(--radius-md);
+    border: 1px solid var(--border); transition: border-color 0.15s, color 0.15s;
+  }
+  .btn-secondary:hover { border-color: var(--border-hover); color: var(--text); }
+
+  /* Stats row */
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); border-bottom: 1px solid var(--border); }
+  .stat { padding: 20px 24px; border-right: 1px solid var(--border); }
+  .stat:last-child { border-right: none; }
+  .stat-val { font-size: 22px; font-weight: 700; color: var(--text); }
+  .stat-label { font-size: 12px; color: var(--text-tertiary); margin-top: 2px; }
+
+  /* Sections */
+  .section { padding: 40px 28px; border-bottom: 1px solid var(--border); }
+  .section-header { display: flex; align-items: center; gap: 10px; margin-bottom: 24px; }
+  .section-title { font-size: 13px; font-weight: 500; letter-spacing: 0.04em; white-space: nowrap; }
+  .section-count { font-size: 11px; color: var(--text-tertiary); white-space: nowrap; }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  /* App cards */
+  .apps-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .app-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    transition: border-color 0.2s;
+  }
+  .app-card:hover { border-color: var(--border-hover); }
+  .app-card.featured { border-color: var(--accent-border); }
+  .app-card.featured:hover { border-color: rgba(34,197,94,0.6); }
+  .wide-card { grid-column: span 2; }
+
+  .app-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 14px; }
+  .app-icon {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--bg-tertiary); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
+  }
+  .app-icon-img {
+    width: 40px; height: 40px; border-radius: 10px;
+    object-fit: cover; border: 1px solid var(--border);
+  }
+  .app-badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .badge { font-family: var(--font-mono); font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 500; }
+  .badge.green { background: var(--accent-dim); color: #16a34a; border: 1px solid var(--accent-border); }
+  .badge.blue { background: rgba(59,130,246,0.1); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
+  .badge.amber { background: rgba(245,158,11,0.1); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
+  .badge.gray { background: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border); }
+
+  .app-name { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
+  .app-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.55; margin-bottom: 16px; }
+
+  .app-features { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-bottom: 16px; }
+  .feat { display: flex; align-items: center; gap: 7px; font-size: 12px; color: var(--text-secondary); }
+  .feat-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+
+  .app-footer {
+    display: flex; align-items: center; gap: 12px;
+    padding-top: 14px; border-top: 1px solid var(--border);
+  }
+  .app-stat { font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); }
+  .app-stat strong { color: var(--text-secondary); font-weight: 500; }
+  .app-links { margin-left: auto; display: flex; gap: 8px; }
+  .app-link {
+    font-size: 11px; color: var(--text-secondary); padding: 4px 10px;
+    border-radius: var(--radius-sm); border: 1px solid var(--border);
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .app-link:hover { border-color: var(--border-hover); color: var(--text); }
+
+  .install-cmd { font-size: 12px; color: var(--text-secondary); }
+
+  .inline-code {
+    font-family: var(--font-mono); font-size: 11px;
+    background: var(--bg-tertiary); border: 1px solid var(--border);
+    padding: 1px 6px; border-radius: 4px; color: var(--accent);
+  }
+
+  /* Commits */
+  .term-window {
+    background: var(--bg-secondary); border: 1px solid var(--border);
+    border-radius: 8px; overflow: hidden;
+  }
+  .term-bar {
+    display: flex; align-items: center; gap: 6px;
+    padding: 9px 14px; background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border);
+  }
+  .term-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
+  .term-bar-cmd { font-size: 11px; color: var(--text-tertiary); margin-left: 8px; }
+  :global(.commits-list) { display: flex; flex-direction: column; padding: 6px 0; }
+  :global(.commit-item) {
+    display: flex; align-items: baseline; gap: 10px;
+    padding: 7px 14px; text-decoration: none; color: inherit;
+    transition: background 0.12s;
+    font-family: var(--font-mono); font-size: 12px;
+  }
+  :global(.commit-item:hover) { background: var(--bg-tertiary); }
+  :global(.commit-prompt) { color: var(--accent); flex-shrink: 0; user-select: none; }
+  :global(.commit-sha) { color: var(--accent); flex-shrink: 0; opacity: 0.8; }
+  :global(.commit-repo) { color: #60a5fa; flex-shrink: 0; }
+  :global(.commit-msg) { color: var(--text); flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  :global(.commit-time) { color: var(--text-tertiary); flex-shrink: 0; margin-left: auto; }
+
+  /* Issues */
+  .issues-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .issue-item {
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-secondary);
+    text-decoration: none; color: inherit;
+    transition: border-color 0.15s;
+    display: block;
+  }
+  .issue-item:hover { border-color: var(--border-hover); }
+  .issue-top { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; flex-wrap: wrap; }
+  .issue-num { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); }
+  .issue-label { font-size: 10px; padding: 2px 8px; border-radius: 3px; font-weight: 500; }
+  .issue-label.bug { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
+  .issue-label.feat { background: var(--accent-dim); color: #4ade80; border: 1px solid var(--accent-border); }
+  .issue-label.help { background: rgba(59,130,246,0.1); color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }
+  .issue-label.default { background: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border); }
+  .issue-repo-tag { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); margin-left: auto; }
+  .issue-title { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
+  .issue-meta { font-size: 11px; color: var(--text-tertiary); }
+
+  /* Footer */
+  .footer { padding: 22px 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+  .footer-left { font-size: 12px; color: var(--text-tertiary); }
+  .footer-right { font-size: 12px; color: var(--text-tertiary); }
+
+  /* Accent color helper */
+  .accent { color: var(--accent); }
+
+  /* Responsive */
+  @media (max-width: 600px) {
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .stat:nth-child(2) { border-right: none; }
+    .apps-grid { grid-template-columns: 1fr; }
+    .wide-card { grid-column: span 1; }
+    .issues-grid { grid-template-columns: 1fr; }
+    .nav-links a:not(.nav-badge) { display: none; }
+  }
+</style>
+
+<script src="/scripts/github.js" is:inline></script>
