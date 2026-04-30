@@ -18,7 +18,7 @@ const REPOS = [
     desc: 'Web UI for managing your Traefik instance. Live dashboard, TLS certs, access logs, plugins - all from your browser.',
     features: ['live dashboard', 'TLS cert viewer', 'access log stream', 'plugin viewer', 'auto backups', 'mobile companion'],
     badges: ['stable', 'github'],
-    links: { docs: 'https://github.com/chr0nzz/traefik-manager#readme', github: 'https://github.com/chr0nzz/traefik-manager' },
+    links: { docs: 'https://traefik-manager.xyzlab.dev', github: 'https://github.com/chr0nzz/traefik-manager' },
     featured: true,
   },
   {
