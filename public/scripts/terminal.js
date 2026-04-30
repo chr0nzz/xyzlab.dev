@@ -578,7 +578,10 @@
   });
 
   input.addEventListener('input', () => {
-    typedEl.textContent = input.value;
+    const val = input.value;
+    typedEl.textContent = val;
+    typedEl.style.direction = 'ltr';
+    typedEl.style.unicodeBidi = 'plaintext';
   });
 
   // ─── Boot sequence then hand off ──────────────────────────────────────────

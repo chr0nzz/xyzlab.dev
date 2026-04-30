@@ -303,7 +303,7 @@ async function loadIssues() {
       .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
       .slice(0, 6);
 
-    if (countEl) countEl.textContent = `${flat.length} open`;
+    if (countEl) countEl.textContent = flat.length;
 
     grid.innerHTML = '';
     flat.forEach(issue => {
@@ -318,21 +318,37 @@ async function loadIssues() {
         labelType === 'feat' ? 'enhancement' :
         labelType === 'help' ? 'help wanted' : 'open';
 
+      const iconColor = labelType === 'bug' ? '#f87171' : labelType === 'help' ? '#60a5fa' : 'var(--accent)';
+      const labelColors = {
+        bug:     'background:rgba(239,68,68,0.12);color:#f87171;border:1px solid rgba(239,68,68,0.25)',
+        feat:    'background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)',
+        help:    'background:rgba(59,130,246,0.12);color:#60a5fa;border:1px solid rgba(59,130,246,0.25)',
+        default: 'background:var(--bg-tertiary);color:var(--text-secondary);border:1px solid var(--border)',
+      };
       const item = el('a', {
         href: issue.html_url,
         target: '_blank',
         rel: 'noopener',
         class: 'issue-item fade-in',
+        style: 'display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;background:var(--bg-secondary);transition:background 0.12s',
       });
       item.innerHTML = `
-        <div class="issue-top">
-          <span class="issue-num mono">#${issue.number}</span>
-          <span class="issue-label ${labelType}">${labelText}</span>
-          <span class="issue-repo-tag mono">${issue.repoSlug}</span>
+        <svg style="flex-shrink:0;margin-top:2px;color:${iconColor}" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/>
+          <path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"/>
+        </svg>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
+            <span style="font-size:14px;font-weight:600;color:var(--text)">${issue.title}</span>
+            <span style="font-size:11px;padding:2px 8px;border-radius:99px;font-weight:500;${labelColors[labelType]}">${labelText}</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-tertiary);font-family:var(--font-mono)">
+            #${issue.number} · ${issue.repoSlug} · opened ${timeAgo(issue.created_at)} · ${issue.comments} comment${issue.comments !== 1 ? 's' : ''}
+          </div>
         </div>
-        <div class="issue-title">${issue.title}</div>
-        <div class="issue-meta">opened ${timeAgo(issue.created_at)} · ${issue.comments} comment${issue.comments !== 1 ? 's' : ''}</div>
       `;
+      item.addEventListener('mouseenter', () => item.style.background = 'var(--bg-tertiary)');
+      item.addEventListener('mouseleave', () => item.style.background = 'var(--bg-secondary)');
       grid.appendChild(item);
     });
   } catch (e) {

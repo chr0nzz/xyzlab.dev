@@ -15,6 +15,10 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="stylesheet" href="/styles/global.css" />
+  <script is:inline>
+    const t = localStorage.getItem('theme');
+    if (t) document.documentElement.setAttribute('data-theme', t);
+  </script>
 </head>
 
 <body>
@@ -26,6 +30,17 @@
     <a href="#apps">apps</a>
     <a href="#activity">activity</a>
     <a href="#issues">issues</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
+      <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+        <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+      </svg>
+      <svg class="icon-moon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+      </svg>
+    </button>
     <a
       href="https://github.com/chr0nzz"
       target="_blank"
@@ -57,14 +72,14 @@
       <div class="dot g"></div>
       <span class="terminal-title mono">bash - xyzlab.dev</span>
     </div>
-    <div class="term-body" id="term-body">
+    <div class="term-body" id="term-body" dir="ltr">
       <div class="term-input-row">
         <span class="term-accent">$</span>
         <span class="term-typed mono" id="term-typed"></span>
         <span class="cursor" id="term-cursor"></span>
       </div>
     </div>
-    <input id="term-input" autocomplete="off" spellcheck="false" style="position:absolute;opacity:0;pointer-events:none;width:1px;height:1px" />
+    <input id="term-input" type="text" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" dir="ltr" style="position:fixed;left:-9999px;top:50%;width:200px;height:40px;font-size:16px;opacity:0" />
   </div>
 
   <div class="hero-ctas">
@@ -111,7 +126,6 @@
         <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/icon.png" class="app-icon-img" alt="Traefik Manager icon" />
         <div class="app-badges" data-repo-badges="traefik-manager">
           <span class="badge green">stable</span>
-          <span class="badge gray">github</span>
         </div>
       </div>
       <div class="app-name">Traefik Manager</div>
@@ -127,11 +141,11 @@
         <div class="feat"><div class="feat-dot"></div>OIDC / SSO</div>
       </div>
       <div class="app-screenshots">
-        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-dashboard.png" class="screenshot" alt="Dashboard" loading="lazy" />
-        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-routes.png" class="screenshot" alt="Routes" loading="lazy" />
-        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-middleware.png" class="screenshot" alt="Middleware" loading="lazy" />
-        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-services.png" class="screenshot" alt="Services" loading="lazy" />
-        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-route-map.png" class="screenshot" alt="Route map" loading="lazy" />
+        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-dashboard.png" data-dark="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-dashboard.png" data-light="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/light-dashboard.png" class="screenshot theme-screenshot" alt="Dashboard" loading="lazy" />
+        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-routes.png" data-dark="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-routes.png" data-light="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/light-routes.png" class="screenshot theme-screenshot" alt="Routes" loading="lazy" />
+        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-middleware.png" data-dark="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-middleware.png" data-light="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/light-middleware.png" class="screenshot theme-screenshot" alt="Middleware" loading="lazy" />
+        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-services.png" data-dark="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-services.png" data-light="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/light-services.png" class="screenshot theme-screenshot" alt="Services" loading="lazy" />
+        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-route-map.png" data-dark="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-route-map.png" data-light="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/light-route-map.png" class="screenshot theme-screenshot" alt="Route map" loading="lazy" />
       </div>
       <div class="app-footer">
         <span class="app-stat mono"><strong data-repo-stars="traefik-manager">…</strong> ★</span>
@@ -148,7 +162,6 @@
         <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/icon.png" class="app-icon-img" alt="Traefik Manager Mobile icon" />
         <div class="app-badges" data-repo-badges="traefik-manager-mobile">
           <span class="badge amber">beta</span>
-          <span class="badge blue">play store</span>
         </div>
       </div>
       <div class="app-name">Traefik Manager Mobile</div>
@@ -192,7 +205,7 @@
       </div>
       <div class="install-block">
         <code class="install-cmd mono" id="traefik-stack-cmd">curl -fsSL https://get-traefik.xyzlab.dev | bash</code>
-        <button class="copy-btn mono" onclick="navigator.clipboard.writeText('curl -fsSL https://get-traefik.xyzlab.dev | bash').then(()=>{this.textContent='copied';setTimeout(()=>this.textContent='copy',1500)})">copy</button>
+        <button class="copy-btn mono" onclick="(async(b)=>{const t='curl -fsSL https://get-traefik.xyzlab.dev | bash';try{await navigator.clipboard.writeText(t)}catch(e){const i=document.createElement('textarea');i.value=t;document.body.appendChild(i);i.select();document.execCommand('copy');i.remove()}b.textContent='copied';setTimeout(()=>b.textContent='copy',1500)})(this)">copy</button>
       </div>
       <div class="app-footer">
         <span class="app-stat mono"><strong data-repo-stars="traefik-stack">…</strong> ★</span>
@@ -273,14 +286,11 @@
   <!-- Recent commits -->
   <div style="margin-top: 28px">
     <div class="section-header" style="margin-bottom: 12px">
-      <span class="section-title mono" style="font-size: 11px">recent commits</span>
+      <span class="section-title mono">// recent commits</span>
       <div class="section-line"></div>
     </div>
     <div class="term-window">
       <div class="term-bar">
-        <span class="term-dot" style="background:#ff5f57"></span>
-        <span class="term-dot" style="background:#febc2e"></span>
-        <span class="term-dot" style="background:#28c840"></span>
         <span class="term-bar-cmd mono">git log --all --oneline</span>
       </div>
       <div id="commits-list" class="commits-list">
@@ -299,32 +309,29 @@
 
 <!-- ─── Issues ────────────────────────────────────────────────────────────────── -->
 <section class="section" id="issues">
-  <div class="section-header">
+  <div class="section-header" style="margin-bottom: 14px">
     <span class="section-title mono">// open issues</span>
     <div class="section-line"></div>
-    <a
-      href="https://github.com/chr0nzz"
-      target="_blank"
-      rel="noopener"
-      class="section-count mono"
-      style="color: var(--accent)"
-    >
-      <span id="issues-count">loading…</span>
-    </a>
   </div>
 
-  <div id="issues-grid" class="issues-grid">
-    <!-- Skeletons -->
-    {Array.from({ length: 4 }).map(() => (
-      <div class="issue-item">
-        <div style="display: flex; gap: 8px; margin-bottom: 8px">
-          <div class="skeleton" style="width: 32px; height: 16px"></div>
-          <div class="skeleton" style="width: 70px; height: 16px"></div>
+  <div class="issues-wrap">
+    <div class="issues-header">
+      <span class="issues-tab active mono" id="issues-open-tab">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:-2px;margin-right:4px"><path d="M8 9.5a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3Z"/><path d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0ZM1.5 8a6.5 6.5 0 1 0 13 0 6.5 6.5 0 0 0-13 0Z"/></svg>
+        <span id="issues-count">0</span>&nbsp;Open
+      </span>
+    </div>
+    <div id="issues-grid" class="issues-grid">
+      {Array.from({ length: 3 }).map(() => (
+        <div class="issue-item">
+          <div style="width:16px;height:16px;flex-shrink:0" class="skeleton"></div>
+          <div class="issue-body">
+            <div class="skeleton" style="width:60%;height:14px;margin-bottom:6px"></div>
+            <div class="skeleton" style="width:40%;height:11px"></div>
+          </div>
         </div>
-        <div class="skeleton" style="width: 90%; height: 16px; margin-bottom: 8px"></div>
-        <div class="skeleton" style="width: 60%; height: 12px"></div>
-      </div>
-    ))}
+      ))}
+    </div>
   </div>
 </section>
 
@@ -355,7 +362,7 @@
     border-bottom: 1px solid var(--border);
     position: sticky;
     top: 0;
-    background: rgba(11, 13, 15, 0.85);
+    background: color-mix(in srgb, var(--bg) 85%, transparent);
     backdrop-filter: blur(12px);
     z-index: 10;
   }
@@ -373,6 +380,15 @@
     transition: border-color 0.15s, color 0.15s;
   }
   .nav-badge:hover { border-color: var(--border-hover); color: var(--text); }
+  .theme-toggle {
+    background: none; border: 1px solid var(--border); border-radius: var(--radius-sm);
+    color: var(--text-secondary); padding: 5px 8px; display: flex; align-items: center;
+    transition: border-color 0.15s, color 0.15s; cursor: pointer;
+  }
+  .theme-toggle:hover { border-color: var(--border-hover); color: var(--text); }
+  .icon-moon { display: none; }
+  [data-theme="light"] .icon-sun { display: none; }
+  [data-theme="light"] .icon-moon { display: block; }
 
   /* Hero */
   .hero { padding: 56px 28px 44px; border-bottom: 1px solid var(--border); }
@@ -456,6 +472,7 @@
     border-radius: var(--radius-lg);
     padding: 20px;
     transition: border-color 0.2s;
+    min-width: 0;
   }
   .app-card:hover { border-color: var(--border-hover); }
   .app-card.featured { border-color: var(--accent-border); }
@@ -474,11 +491,11 @@
   }
   .app-badges { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
   .badge { font-family: var(--font-mono); font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 500; }
-  .badge.green { background: var(--accent-dim); color: #16a34a; border: 1px solid var(--accent-border); }
+  .badge.green { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border); }
   .badge.blue { background: rgba(59,130,246,0.1); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
   .badge.amber { background: rgba(245,158,11,0.1); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
   .badge.gray { background: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border); }
-  :global(.badge.version) { font-family: var(--font-mono); font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 500; background: var(--accent-dim); color: #16a34a; border: 1px solid var(--accent-border); }
+  :global(.badge.version) { font-family: var(--font-mono); font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 500; background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border); }
   :global(.badge.prerelease) { font-family: var(--font-mono); font-size: 10px; padding: 3px 8px; border-radius: 4px; font-weight: 500; background: rgba(245,158,11,0.1); color: #fbbf24; border: 1px solid rgba(245,158,11,0.25); }
 
   .app-name { font-size: 15px; font-weight: 600; margin-bottom: 6px; }
@@ -544,8 +561,7 @@
     padding: 9px 14px; background: var(--bg-tertiary);
     border-bottom: 1px solid var(--border);
   }
-  .term-dot { width: 11px; height: 11px; border-radius: 50%; flex-shrink: 0; }
-  .term-bar-cmd { font-size: 11px; color: var(--text-tertiary); margin-left: 8px; }
+  .term-bar-cmd { font-size: 11px; color: var(--text-tertiary); }
   :global(.commits-list) { display: flex; flex-direction: column; padding: 6px 0; }
   :global(.commit-item) {
     display: flex; align-items: baseline; gap: 10px;
@@ -562,26 +578,39 @@
 
   /* Issues */
   .issues-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .issue-item {
-    padding: 14px 16px;
-    border: 1px solid var(--border);
-    border-radius: var(--radius-md);
-    background: var(--bg-secondary);
-    text-decoration: none; color: inherit;
-    transition: border-color 0.15s;
-    display: block;
+  .issues-wrap { border: 1px solid var(--border); border-radius: var(--radius-lg); overflow: hidden; }
+  .issues-header {
+    display: flex; align-items: center; gap: 4px;
+    padding: 10px 16px; background: var(--bg-tertiary);
+    border-bottom: 1px solid var(--border);
   }
-  .issue-item:hover { border-color: var(--border-hover); }
-  .issue-top { display: flex; align-items: center; gap: 8px; margin-bottom: 7px; flex-wrap: wrap; }
-  .issue-num { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); }
-  .issue-label { font-size: 10px; padding: 2px 8px; border-radius: 3px; font-weight: 500; }
-  .issue-label.bug { background: rgba(239,68,68,0.1); color: #f87171; border: 1px solid rgba(239,68,68,0.2); }
-  .issue-label.feat { background: var(--accent-dim); color: #4ade80; border: 1px solid var(--accent-border); }
-  .issue-label.help { background: rgba(59,130,246,0.1); color: #60a5fa; border: 1px solid rgba(59,130,246,0.2); }
+  .issues-tab { font-size: 13px; color: var(--text-secondary); padding: 4px 8px; border-radius: var(--radius-sm); display: flex; align-items: center; }
+  .issues-tab.active { font-weight: 600; color: var(--text); }
+  .issues-grid { display: flex; flex-direction: column; }
+  .issue-item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 14px 16px; border-bottom: 1px solid var(--border);
+    text-decoration: none; color: inherit;
+    transition: background 0.12s;
+    background: var(--bg-secondary);
+  }
+  .issue-item:last-child { border-bottom: none; }
+  .issue-item:hover { background: var(--bg-tertiary); }
+  .issue-icon { flex-shrink: 0; margin-top: 2px; color: var(--accent); }
+  .issue-icon.bug { color: #f87171; }
+  .issue-icon.help { color: #60a5fa; }
+  .issue-body { flex: 1; min-width: 0; }
+  .issue-top { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; flex-wrap: wrap; }
+  .issue-title { font-size: 14px; font-weight: 600; color: var(--text); }
+  .issue-title:hover { color: var(--accent); }
+  .issue-num { font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); flex-shrink: 0; }
+  .issue-label { font-size: 11px; padding: 2px 8px; border-radius: 99px; font-weight: 500; flex-shrink: 0; }
+  .issue-label.bug { background: rgba(239,68,68,0.12); color: #f87171; border: 1px solid rgba(239,68,68,0.25); }
+  .issue-label.feat { background: var(--accent-dim); color: var(--accent); border: 1px solid var(--accent-border); }
+  .issue-label.help { background: rgba(59,130,246,0.12); color: #60a5fa; border: 1px solid rgba(59,130,246,0.25); }
   .issue-label.default { background: var(--bg-tertiary); color: var(--text-secondary); border: 1px solid var(--border); }
-  .issue-repo-tag { font-family: var(--font-mono); font-size: 10px; color: var(--text-tertiary); margin-left: auto; }
-  .issue-title { font-size: 13px; font-weight: 500; margin-bottom: 6px; }
-  .issue-meta { font-size: 11px; color: var(--text-tertiary); }
+  .issue-repo-tag { font-family: var(--font-mono); font-size: 11px; color: var(--text-tertiary); flex-shrink: 0; margin-left: auto; }
+  .issue-meta { font-size: 12px; color: var(--text-tertiary); }
 
   /* Footer */
   .footer { padding: 22px 28px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
@@ -670,6 +699,31 @@
   .lightbox-prev:hover, .lightbox-next:hover { border-color: var(--border-hover); }
 </style>
 
+<script is:inline>
+  (function() {
+    const saved = localStorage.getItem('theme');
+    if (saved) document.documentElement.setAttribute('data-theme', saved);
+    document.addEventListener('DOMContentLoaded', () => {
+      const btn = document.getElementById('theme-toggle');
+      if (!btn) return;
+      const initial = document.documentElement.getAttribute('data-theme');
+      if (initial === 'light') {
+        document.querySelectorAll('.theme-screenshot').forEach(img => {
+          if (img.dataset.light) img.src = img.dataset.light;
+        });
+      }
+      btn.addEventListener('click', () => {
+        const current = document.documentElement.getAttribute('data-theme');
+        const next = current === 'light' ? 'dark' : 'light';
+        document.documentElement.setAttribute('data-theme', next);
+        localStorage.setItem('theme', next);
+        document.querySelectorAll('.theme-screenshot').forEach(img => {
+          img.src = img.dataset[next] || img.src;
+        });
+      });
+    });
+  })();
+</script>
 <script src="/scripts/terminal.js" is:inline></script>
 <script src="/scripts/github.js" is:inline></script>
 <script is:inline>
