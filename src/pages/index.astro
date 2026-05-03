@@ -25,11 +25,18 @@
 
 <!-- ─── Nav ──────────────────────────────────────────────────────────────────── -->
 <nav class="nav">
-  <a href="/" class="nav-logo mono">xyz<span class="accent">lab</span>.dev</a>
+  <a href="/" class="nav-logo mono">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="20" height="20" style="border-radius:4px;margin-right:8px;vertical-align:-4px;flex-shrink:0">
+      <rect width="32" height="32" rx="6" fill="var(--bg)"/>
+      <rect x="6" y="10" width="8" height="3" rx="1" fill="#22c55e"/>
+      <rect x="6" y="16" width="14" height="3" rx="1" fill="#22c55e" opacity="0.5"/>
+      <rect x="6" y="22" width="18" height="3" rx="1" fill="#22c55e" opacity="0.25"/>
+    </svg>xyz<span class="accent">lab</span>.dev</a>
   <div class="nav-links">
     <a href="#apps">apps</a>
     <a href="#activity">activity</a>
     <a href="#issues">issues</a>
+    <a href="#discussions">discussions</a>
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
       <svg class="icon-sun" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
@@ -142,9 +149,9 @@
       </div>
       <div class="app-screenshots">
         <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-dashboard.png" data-dark="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-dashboard.png" data-light="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/light-dashboard.png" class="screenshot theme-screenshot" alt="Dashboard" loading="lazy" />
-        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-routes.png" data-dark="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-routes.png" data-light="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/light-routes.png" class="screenshot theme-screenshot" alt="Routes" loading="lazy" />
-        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-middleware.png" data-dark="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-middleware.png" data-light="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/light-middleware.png" class="screenshot theme-screenshot" alt="Middleware" loading="lazy" />
-        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-services.png" data-dark="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-services.png" data-light="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/light-services.png" class="screenshot theme-screenshot" alt="Services" loading="lazy" />
+        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-routes-cards.png" data-dark="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-routes-cards.png" data-light="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/light-routes-cards.png" class="screenshot theme-screenshot" alt="Routes" loading="lazy" />
+        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-middlewares-cards.png" data-dark="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-middlewares-cards.png" data-light="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/light-middlewares-cards.png" class="screenshot theme-screenshot" alt="Middlewares" loading="lazy" />
+        <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-services-cards.png" data-dark="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-services-cards.png" data-light="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/light-services-cards.png" class="screenshot theme-screenshot" alt="Services" loading="lazy" />
         <img src="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-route-map.png" data-dark="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/dark-route-map.png" data-light="https://github.com/chr0nzz/traefik-manager/raw/main/docs/public/images/light-route-map.png" class="screenshot theme-screenshot" alt="Route map" loading="lazy" />
       </div>
       <div class="app-footer">
@@ -322,6 +329,34 @@
       </span>
     </div>
     <div id="issues-grid" class="issues-grid">
+      {Array.from({ length: 3 }).map(() => (
+        <div class="issue-item">
+          <div style="width:16px;height:16px;flex-shrink:0" class="skeleton"></div>
+          <div class="issue-body">
+            <div class="skeleton" style="width:60%;height:14px;margin-bottom:6px"></div>
+            <div class="skeleton" style="width:40%;height:11px"></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<!-- ─── Discussions ───────────────────────────────────────────────────────────── -->
+<section class="section" id="discussions">
+  <div class="section-header" style="margin-bottom: 14px">
+    <span class="section-title mono">// discussions</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="issues-wrap">
+    <div class="issues-header">
+      <span class="issues-tab active mono">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:-2px;margin-right:4px"><path d="M1.75 1h8.5c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0 1 10.25 10H7.061l-2.574 2.561A1.75 1.75 0 0 1 1.5 11.25V1.75C1.5 1.784 1.75 1 1.75 1ZM1 1.75v9.5c0 .138.112.25.25.25.068 0 .135-.028.183-.076l2.75-2.673A.25.25 0 0 1 4.363 8.5H10.25a.25.25 0 0 0 .25-.25v-5.5a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Zm13 2.75v5.5a.25.25 0 0 1-.25.25h-.5a.75.75 0 0 0 0 1.5h.5c.966 0 1.75-.784 1.75-1.75v-5.5a.75.75 0 0 0-1.5 0Z"/></svg>
+        <span id="discussions-count">0</span>&nbsp;Discussions
+      </span>
+    </div>
+    <div id="discussions-grid" class="issues-grid">
       {Array.from({ length: 3 }).map(() => (
         <div class="issue-item">
           <div style="width:16px;height:16px;flex-shrink:0" class="skeleton"></div>

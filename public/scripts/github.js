@@ -77,6 +77,18 @@ async function ghFetch(path) {
   return res.json();
 }
 
+async function ghGraphQL(query) {
+  const headers = { 'Content-Type': 'application/json' };
+  if (GH_TOKEN) headers['Authorization'] = `Bearer ${GH_TOKEN}`;
+  const res = await fetch('https://api.github.com/graphql', {
+    method: 'POST',
+    headers,
+    body: JSON.stringify({ query }),
+  });
+  if (!res.ok) throw new Error(`GraphQL → ${res.status}`);
+  return res.json();
+}
+
 function timeAgo(dateStr) {
   const diff = Date.now() - new Date(dateStr).getTime();
   const mins = Math.floor(diff / 60000);
@@ -397,6 +409,83 @@ function typewriter(el, lines, speed = 38) {
   tick();
 }
 
+// ─── Discussions ─────────────────────────────────────────────────────────────
+
+async function loadDiscussions() {
+  const grid = document.getElementById('discussions-grid');
+  const countEl = document.getElementById('discussions-count');
+  if (!grid) return;
+  if (!GH_TOKEN) {
+    grid.innerHTML = '<p style="color:var(--text-tertiary);font-size:13px;padding:14px 16px">GitHub token required to load discussions.</p>';
+    return;
+  }
+
+  try {
+    const aliases = REPOS.map(r => {
+      const key = r.slug.replace(/-/g, '_');
+      return `${key}: repository(owner: "${USER}", name: "${r.slug}") {
+        discussions(first: 5, orderBy: {field: CREATED_AT, direction: DESC}) {
+          nodes {
+            number title url createdAt
+            comments { totalCount }
+            category { name }
+            author { login }
+          }
+        }
+      }`;
+    }).join('\n');
+
+    const data = await ghGraphQL(`{ ${aliases} }`);
+
+    const all = REPOS.flatMap(r => {
+      const key = r.slug.replace(/-/g, '_');
+      const nodes = data?.data?.[key]?.discussions?.nodes || [];
+      return nodes.map(d => ({ ...d, repoSlug: r.slug }));
+    })
+    .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+    .slice(0, 6);
+
+    if (countEl) countEl.textContent = all.length;
+    grid.innerHTML = '';
+
+    if (!all.length) {
+      grid.innerHTML = '<p style="color:var(--text-tertiary);font-size:13px;padding:14px 16px">No discussions found.</p>';
+      return;
+    }
+
+    all.forEach(d => {
+      const item = el('a', {
+        href: d.url,
+        target: '_blank',
+        rel: 'noopener',
+        class: 'issue-item fade-in',
+        style: 'display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;background:var(--bg-secondary);transition:background 0.12s',
+      });
+      const emoji = d.category?.emojiHTML || '💬';
+      item.innerHTML = `
+        <svg style="flex-shrink:0;margin-top:2px;color:var(--accent)" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M1.75 1h8.5c.966 0 1.75.784 1.75 1.75v5.5A1.75 1.75 0 0 1 10.25 10H7.061l-2.574 2.561A1.75 1.75 0 0 1 1.5 11.25V1.75C1.5 1.784 1.75 1 1.75 1ZM1 1.75v9.5c0 .138.112.25.25.25.068 0 .135-.028.183-.076l2.75-2.673A.25.25 0 0 1 4.363 8.5H10.25a.25.25 0 0 0 .25-.25v-5.5a.25.25 0 0 0-.25-.25h-8.5a.25.25 0 0 0-.25.25Z"/>
+        </svg>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
+            <span style="font-size:14px;font-weight:600;color:var(--text)">${d.title}</span>
+            <span style="font-size:11px;padding:2px 8px;border-radius:99px;font-weight:500;background:var(--accent-dim);color:var(--accent);border:1px solid var(--accent-border)">${d.category?.name || 'General'}</span>
+          </div>
+          <div style="font-size:12px;color:var(--text-tertiary);font-family:var(--font-mono)">
+            #${d.number} · ${d.repoSlug} · opened ${timeAgo(d.createdAt)} · ${d.comments.totalCount} comment${d.comments.totalCount !== 1 ? 's' : ''}
+          </div>
+        </div>
+      `;
+      item.addEventListener('mouseenter', () => item.style.background = 'var(--bg-tertiary)');
+      item.addEventListener('mouseleave', () => item.style.background = 'var(--bg-secondary)');
+      grid.appendChild(item);
+    });
+  } catch (e) {
+    console.warn('Discussions load failed:', e);
+    grid.innerHTML = '<p style="color:var(--text-tertiary);font-size:13px;padding:14px 16px">Could not load discussions.</p>';
+  }
+}
+
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -405,4 +494,5 @@ document.addEventListener('DOMContentLoaded', () => {
   loadContribGraph();
   loadCommits();
   loadIssues();
+  loadDiscussions();
 });
