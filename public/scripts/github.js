@@ -125,17 +125,10 @@ async function loadVersions() {
       try {
         const releases = await ghFetch(`/repos/${USER}/${r.slug}/releases?per_page=10`);
         const latest = releases.find(r => !r.prerelease);
-        const pre = releases.find(r => r.prerelease);
         if (latest) {
           const b = document.createElement('span');
           b.className = 'badge version';
           b.textContent = latest.tag_name;
-          container.appendChild(b);
-        }
-        if (pre) {
-          const b = document.createElement('span');
-          b.className = 'badge prerelease';
-          b.textContent = `${pre.tag_name} pre`;
           container.appendChild(b);
         }
       } catch {}
