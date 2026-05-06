@@ -312,6 +312,33 @@
       </div>
     </div>
   </div>
+
+  <!-- Pull Requests -->
+  <div style="margin-top: 28px">
+    <div class="section-header" style="margin-bottom: 12px">
+      <span class="section-title mono">// pull requests</span>
+      <div class="section-line"></div>
+    </div>
+    <div class="issues-wrap">
+      <div class="issues-header">
+        <span class="issues-tab active mono">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" style="vertical-align:-2px;margin-right:4px"><path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"/></svg>
+          <span id="prs-count">0</span>&nbsp;Open
+        </span>
+      </div>
+      <div id="prs-grid" class="issues-grid">
+        {Array.from({ length: 3 }).map(() => (
+          <div class="issue-item">
+            <div style="width:16px;height:16px;flex-shrink:0" class="skeleton"></div>
+            <div class="issue-body">
+              <div class="skeleton" style="width:60%;height:14px;margin-bottom:6px"></div>
+              <div class="skeleton" style="width:40%;height:11px"></div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- ─── Issues ────────────────────────────────────────────────────────────────── -->

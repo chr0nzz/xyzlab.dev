@@ -402,6 +402,69 @@ function typewriter(el, lines, speed = 38) {
   tick();
 }
 
+// ─── Pull Requests ───────────────────────────────────────────────────────────
+
+async function loadPullRequests() {
+  const grid = document.getElementById('prs-grid');
+  const countEl = document.getElementById('prs-count');
+  if (!grid) return;
+
+  try {
+    const all = await Promise.all(
+      REPOS.map(r =>
+        ghFetch(`/repos/${USER}/${r.slug}/pulls?state=open&per_page=10`)
+          .then(prs => prs.map(p => ({ ...p, repoSlug: r.slug })))
+          .catch(() => [])
+      )
+    );
+
+    const flat = all
+      .flat()
+      .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
+      .slice(0, 6);
+
+    if (countEl) countEl.textContent = flat.length;
+    grid.innerHTML = '';
+
+    if (!flat.length) {
+      grid.innerHTML = '<p style="color:var(--text-tertiary);font-size:13px;padding:14px 16px">No open pull requests.</p>';
+      return;
+    }
+
+    flat.forEach(pr => {
+      const isDraft = pr.draft;
+      const iconColor = isDraft ? 'var(--text-tertiary)' : 'var(--accent)';
+      const item = el('a', {
+        href: pr.html_url,
+        target: '_blank',
+        rel: 'noopener',
+        class: 'issue-item fade-in',
+        style: 'display:flex;align-items:flex-start;gap:12px;padding:14px 16px;border-bottom:1px solid var(--border);text-decoration:none;color:inherit;background:var(--bg-secondary);transition:background 0.12s',
+      });
+      item.innerHTML = `
+        <svg style="flex-shrink:0;margin-top:2px;color:${iconColor}" width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+          <path d="M1.5 3.25a2.25 2.25 0 1 1 3 2.122v5.256a2.251 2.251 0 1 1-1.5 0V5.372A2.25 2.25 0 0 1 1.5 3.25Zm5.677-.177L9.573.677A.25.25 0 0 1 10 .854V2.5h1A2.5 2.5 0 0 1 13.5 5v5.628a2.251 2.251 0 1 1-1.5 0V5a1 1 0 0 0-1-1h-1v1.646a.25.25 0 0 1-.427.177L7.177 3.427a.25.25 0 0 1 0-.354ZM3.75 2.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm0 9.5a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Zm8.25.75a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Z"/>
+        </svg>
+        <div style="flex:1;min-width:0">
+          <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:4px">
+            <span style="font-size:14px;font-weight:600;color:var(--text)">${pr.title}</span>
+            ${isDraft ? `<span style="font-size:11px;padding:2px 8px;border-radius:99px;font-weight:500;background:var(--bg-tertiary);color:var(--text-secondary);border:1px solid var(--border)">draft</span>` : ''}
+          </div>
+          <div style="font-size:12px;color:var(--text-tertiary);font-family:var(--font-mono)">
+            #${pr.number} · ${pr.repoSlug} · opened ${timeAgo(pr.created_at)} · ${pr.comments} comment${pr.comments !== 1 ? 's' : ''}
+          </div>
+        </div>
+      `;
+      item.addEventListener('mouseenter', () => item.style.background = 'var(--bg-tertiary)');
+      item.addEventListener('mouseleave', () => item.style.background = 'var(--bg-secondary)');
+      grid.appendChild(item);
+    });
+  } catch (e) {
+    console.warn('PRs load failed:', e);
+    grid.innerHTML = '<p style="color:var(--text-tertiary);font-size:13px;padding:14px 16px">Could not load pull requests.</p>';
+  }
+}
+
 // ─── Discussions ─────────────────────────────────────────────────────────────
 
 async function loadDiscussions() {
@@ -486,6 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
   loadVersions();
   loadContribGraph();
   loadCommits();
+  loadPullRequests();
   loadIssues();
   loadDiscussions();
 });
