@@ -482,7 +482,7 @@ async function loadDiscussions() {
       return `${key}: repository(owner: "${USER}", name: "${r.slug}") {
         discussions(first: 5, orderBy: {field: CREATED_AT, direction: DESC}) {
           nodes {
-            number title url createdAt
+            number title url createdAt closed
             comments { totalCount }
             category { name }
             author { login }
@@ -498,6 +498,7 @@ async function loadDiscussions() {
       const nodes = data?.data?.[key]?.discussions?.nodes || [];
       return nodes.map(d => ({ ...d, repoSlug: r.slug }));
     })
+    .filter(d => !d.closed)
     .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
     .slice(0, 6);
 
