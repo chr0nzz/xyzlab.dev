@@ -402,6 +402,34 @@ function typewriter(el, lines, speed = 38) {
   tick();
 }
 
+// ─── Sponsors ────────────────────────────────────────────────────────────────
+
+const SPONSORS_GIST = 'https://gist.githubusercontent.com/chr0nzz/5cd8cfb945b933aaa4e5a39db4daae99/raw/sponsors.json';
+
+async function loadSponsors() {
+  const list = document.getElementById('sponsors-list');
+  if (!list) return;
+  try {
+    const sponsors = await fetch(`${SPONSORS_GIST}?t=${Date.now()}`).then(r => r.json());
+    list.innerHTML = '';
+    sponsors.forEach(s => {
+      const initial = s.name.charAt(0).toUpperCase();
+      const item = document.createElement('div');
+      item.className = 'sponsor-item';
+      item.innerHTML = `
+        <div class="sponsor-avatar">${initial}</div>
+        <div>
+          <div class="sponsor-name">${s.name}</div>
+          <div class="sponsor-meta">$${s.amount.toFixed(2)} · ${timeAgo(s.date)}</div>
+        </div>
+      `;
+      list.appendChild(item);
+    });
+  } catch (e) {
+    console.warn('Sponsors load failed:', e);
+  }
+}
+
 // ─── Pull Requests ───────────────────────────────────────────────────────────
 
 async function loadPullRequests() {
@@ -546,6 +574,7 @@ async function loadDiscussions() {
 // ─── Init ─────────────────────────────────────────────────────────────────────
 
 document.addEventListener('DOMContentLoaded', () => {
+  loadSponsors();
   loadStats();
   loadVersions();
   loadContribGraph();
