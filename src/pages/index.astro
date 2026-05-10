@@ -1,6 +1,5 @@
 ---
-// src/pages/index.astro
-// xyzlab.dev - chr0nzz's app portfolio
+import { SEO } from 'astro-seo';
 ---
 
 <!DOCTYPE html>
@@ -8,12 +7,46 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Self-hosted, open source developer tools by chr0nzz. Traefik Manager, Pulse, and more." />
   <meta name="gh-token" content={import.meta.env.GH_TOKEN || ''} />
-  <title>xyzlab.dev</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <SEO
+    title="xyzlab.dev"
+    description="Open source self-hosted tools by chr0nzz. Traefik Manager, traefik-stack, ntfy-adapter and more - built for homelabbers."
+    canonical="https://xyzlab.dev"
+    openGraph={{
+      basic: {
+        title: "xyzlab.dev - open source homelab tools",
+        type: "website",
+        image: "https://xyzlab.dev/icon.svg",
+        url: "https://xyzlab.dev",
+      },
+      optional: {
+        description: "Open source self-hosted tools by chr0nzz. Traefik Manager, traefik-stack, ntfy-adapter and more.",
+        siteName: "xyzlab.dev",
+        locale: "en_US",
+      },
+    }}
+    twitter={{
+      card: "summary",
+      site: "@chr0nzz",
+      creator: "@chr0nzz",
+      title: "xyzlab.dev - open source homelab tools",
+      description: "Open source self-hosted tools by chr0nzz. Traefik Manager, traefik-stack, ntfy-adapter and more.",
+      image: "https://xyzlab.dev/icon.svg",
+    }}
+    extend={{
+      meta: [
+        { name: "keywords", content: "traefik manager, self-hosted, homelab, docker, open source, traefik, linux" },
+        { name: "author", content: "chr0nzz" },
+        { name: "theme-color", content: "#22c55e" },
+      ],
+      link: [
+        { rel: "icon", type: "image/svg+xml", href: "/favicon.svg" },
+        { rel: "sitemap", href: "/sitemap-index.xml" },
+        { rel: "preconnect", href: "https://fonts.googleapis.com" },
+        { rel: "preconnect", href: "https://fonts.gstatic.com", crossorigin: "" },
+      ],
+    }}
+  />
   <link rel="stylesheet" href="/styles/global.css" />
   <script is:inline>
     const t = localStorage.getItem('theme');
