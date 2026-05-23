@@ -70,7 +70,7 @@ const REPOS = [
     desc: 'Self-hosted auth server. OIDC identity provider and ForwardAuth middleware in a single Docker container. Manage users, policies, and clients from the admin UI.',
     features: ['OIDC provider', 'ForwardAuth', 'access policies', 'passkeys / WebAuthn', 'webhooks', 'admin UI'],
     badges: ['stable'],
-    links: { github: 'https://github.com/chr0nzz/gatekeeper' },
+    links: { docs: 'https://gatekeeper.xyzlab.dev', github: 'https://github.com/chr0nzz/gatekeeper' },
     featured: false,
   },
 ];
