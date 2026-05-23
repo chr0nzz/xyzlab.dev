@@ -63,6 +63,16 @@ const REPOS = [
     wide: true,
     installCmd: 'curl -fsSL https://get-traefik.xyzlab.dev | bash',
   },
+  {
+    slug: 'gatekeeper',
+    displayName: 'GateKeeper',
+    icon: null,
+    desc: 'Self-hosted auth server. OIDC identity provider and ForwardAuth middleware in a single Docker container. Manage users, policies, and clients from the admin UI.',
+    features: ['OIDC provider', 'ForwardAuth', 'access policies', 'passkeys / WebAuthn', 'webhooks', 'admin UI'],
+    badges: ['stable'],
+    links: { github: 'https://github.com/chr0nzz/gatekeeper' },
+    featured: false,
+  },
 ];
 
 // ─── Helpers ─────────────────────────────────────────────────────────────────
