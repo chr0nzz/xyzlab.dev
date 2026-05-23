@@ -11,7 +11,7 @@
   const COMMANDS = ['help', 'clear', 'whoami', 'ls', 'projects', 'github', 'docs', 'install',
     'neofetch', 'docker ps',
     'open traefik-manager', 'open traefik-manager-mobile', 'open traefik-stack',
-    'open ntfy-adapter', 'open jellyfin-widget-proxy'];
+    'open ntfy-adapter', 'open jellyfin-widget-proxy', 'open gatekeeper'];
 
   // ─── Output helpers ───────────────────────────────────────────────────────
 
@@ -91,6 +91,7 @@
         ['traefik-stack',         'traefik + TM one-command installer'],
         ['ntfy-adapter',          'ntfy → homepage widget bridge'],
         ['jellyfin-widget-proxy', 'jellyfin data proxy for dashboards'],
+        ['gatekeeper',            'self-hosted OIDC + ForwardAuth server'],
       ];
       repos.forEach(([name, desc]) => {
         printHTML(`  <span class="term-accent">${name.padEnd(28)}</span><span class="term-dim">${desc}</span>`);
@@ -108,6 +109,7 @@
         'traefik-stack': 'traefik-stack',
         'ntfy-adapter': 'ntfy-adapter',
         'jellyfin-widget-proxy': 'jellyfin-widget-proxy',
+        'gatekeeper': 'gatekeeper',
       };
       const slug = slugMap[arg.trim().toLowerCase()];
       if (!slug) { warn(`project "${arg}" not found. try "ls" to see all projects.`); return; }
@@ -160,7 +162,7 @@
         ['Packages', '312 (dpkg)'],
         ['Terminal', 'xyzlab.dev/terminal'],
         ['', ''],
-        ['Projects', '<span class="term-accent">5</span> open source'],
+        ['Projects', '<span class="term-accent">6</span> open source'],
         ['Stars', `<span class="term-accent">${document.querySelector('[data-stat="stars"]')?.textContent || '368'}★</span>`],
         ['', ''],
         ['', '<span style="display:inline-flex;gap:4px">' +
