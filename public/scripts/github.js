@@ -416,28 +416,46 @@ function typewriter(el, lines, speed = 38) {
 
 const SPONSORS_GIST_ID = '5cd8cfb945b933aaa4e5a39db4daae99';
 
+function escapeHTML(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 async function loadSponsors() {
   const list = document.getElementById('sponsors-list');
   if (!list) return;
   try {
-    const gist = await ghFetch(`/gists/${SPONSORS_GIST_ID}`);
-    const sponsors = JSON.parse(gist.files['sponsors.json'].content);
+    const res = await fetch(`${GH}/gists/${SPONSORS_GIST_ID}`, {
+      headers: { Accept: 'application/vnd.github.v3+json' },
+    });
+    if (!res.ok) throw new Error(`gist ${res.status}`);
+    const gist = await res.json();
+    const file = gist.files && gist.files['sponsors.json'];
+    let sponsors = file && file.content ? JSON.parse(file.content) : [];
+    if (!Array.isArray(sponsors)) sponsors = [];
+
     list.innerHTML = '';
+    if (!sponsors.length) {
+      list.innerHTML = '<p style="color:var(--text-tertiary);font-size:13px">No sponsors yet - be the first!</p>';
+      return;
+    }
     sponsors.forEach(s => {
-      const initial = s.name.charAt(0).toUpperCase();
+      const name = escapeHTML(s.name || 'Anonymous');
+      const amount = Number(s.amount) || 0;
+      const initial = name.charAt(0).toUpperCase() || '?';
       const item = document.createElement('div');
       item.className = 'sponsor-item';
       item.innerHTML = `
         <div class="sponsor-avatar">${initial}</div>
         <div>
-          <div class="sponsor-name">${s.name}</div>
-          <div class="sponsor-meta">$${s.amount.toFixed(2)} · ${timeAgo(s.date)}</div>
+          <div class="sponsor-name">${name}</div>
+          <div class="sponsor-meta">$${amount.toFixed(2)} · ${timeAgo(s.date)}</div>
         </div>
       `;
       list.appendChild(item);
     });
   } catch (e) {
     console.warn('Sponsors load failed:', e);
+    list.innerHTML = '<p style="color:var(--text-tertiary);font-size:13px">Could not load sponsors.</p>';
   }
 }
 

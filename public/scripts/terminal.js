@@ -102,6 +102,8 @@
       if (!arg) { warn('usage: open <project-name>'); return; }
       const slugMap = {
         'traefik-manager': 'traefik-manager',
+        'traefik-manager-mobile': 'traefik-manager',
+        'traefik-stack': 'traefik-manager',
         'ntfy-adapter': 'ntfy-adapter',
         'jellyfin-widget-proxy': 'jellyfin-widget-proxy',
         'gatekeeper': 'gatekeeper',

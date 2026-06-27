@@ -4,6 +4,11 @@ export default {
       return new Response('Method not allowed', { status: 405 });
     }
 
+    if (!env.KOFI_TOKEN || !env.GITHUB_TOKEN || !env.GIST_ID) {
+      console.error('kofi-webhook misconfigured: missing KOFI_TOKEN, GITHUB_TOKEN or GIST_ID');
+      return new Response('Misconfigured', { status: 500 });
+    }
+
     const formData = await request.formData();
     const raw = formData.get('data');
     if (!raw) return new Response('Bad request', { status: 400 });
@@ -15,7 +20,7 @@ export default {
       return new Response('Invalid JSON', { status: 400 });
     }
 
-    if (env.KOFI_TOKEN && payload.verification_token !== env.KOFI_TOKEN) {
+    if (payload.verification_token !== env.KOFI_TOKEN) {
       return new Response('Unauthorized', { status: 401 });
     }
 
@@ -23,36 +28,52 @@ export default {
       return new Response('OK', { status: 200 });
     }
 
-    const name = payload.from_name || 'Anonymous';
-    const amount = parseFloat(payload.amount) || 0;
-    const currency = payload.currency || 'USD';
-    const message = payload.message || '';
-    const date = payload.timestamp || new Date().toISOString();
+    const entry = {
+      name: payload.from_name || 'Anonymous',
+      amount: parseFloat(payload.amount) || 0,
+      currency: payload.currency || 'USD',
+      message: payload.message || '',
+      date: payload.timestamp || new Date().toISOString(),
+    };
 
-    const gistId = env.GIST_ID;
-    const token = env.GITHUB_TOKEN;
+    const gistUrl = `https://api.github.com/gists/${env.GIST_ID}`;
+    const auth = { Authorization: `Bearer ${env.GITHUB_TOKEN}`, 'User-Agent': 'kofi-webhook' };
 
-    const gistRes = await fetch(`https://api.github.com/gists/${gistId}`, {
-      headers: { Authorization: `Bearer ${token}`, 'User-Agent': 'kofi-webhook' },
-    });
-    const gist = await gistRes.json();
-    const existing = JSON.parse(gist.files['sponsors.json'].content);
+    try {
+      const gistRes = await fetch(gistUrl, { headers: auth });
+      if (!gistRes.ok) {
+        console.error('gist read failed', gistRes.status, await gistRes.text());
+        return new Response('Upstream read failed', { status: 502 });
+      }
 
-    existing.unshift({ name, amount, currency, message, date });
-    const updated = existing.slice(0, 50);
+      const gist = await gistRes.json();
+      const file = gist.files && gist.files['sponsors.json'];
+      let existing = [];
+      if (file && file.content) {
+        try { existing = JSON.parse(file.content); } catch { existing = []; }
+      }
+      if (!Array.isArray(existing)) existing = [];
 
-    await fetch(`https://api.github.com/gists/${gistId}`, {
-      method: 'PATCH',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-        'User-Agent': 'kofi-webhook',
-      },
-      body: JSON.stringify({
-        files: { 'sponsors.json': { content: JSON.stringify(updated, null, 2) } },
-      }),
-    });
+      existing.unshift(entry);
+      const updated = existing.slice(0, 50);
 
-    return new Response('OK', { status: 200 });
+      const patchRes = await fetch(gistUrl, {
+        method: 'PATCH',
+        headers: { ...auth, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          files: { 'sponsors.json': { content: JSON.stringify(updated, null, 2) } },
+        }),
+      });
+
+      if (!patchRes.ok) {
+        console.error('gist write failed', patchRes.status, await patchRes.text());
+        return new Response('Upstream write failed', { status: 502 });
+      }
+
+      return new Response('OK', { status: 200 });
+    } catch (err) {
+      console.error('kofi-webhook error', err && err.message);
+      return new Response('Server error', { status: 500 });
+    }
   },
 };
