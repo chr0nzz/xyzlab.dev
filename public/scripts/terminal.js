@@ -10,8 +10,7 @@
 
   const COMMANDS = ['help', 'clear', 'whoami', 'ls', 'projects', 'github', 'docs', 'install',
     'neofetch', 'docker ps',
-    'open traefik-manager', 'open traefik-manager-mobile', 'open traefik-stack',
-    'open ntfy-adapter', 'open jellyfin-widget-proxy', 'open gatekeeper'];
+    'open traefik-manager', 'open ntfy-adapter', 'open jellyfin-widget-proxy', 'open gatekeeper'];
 
   // ─── Output helpers ───────────────────────────────────────────────────────
 
@@ -86,9 +85,7 @@
     ls() {
       blank();
       const repos = [
-        ['traefik-manager',       'web UI for managing traefik'],
-        ['traefik-manager-mobile','react native companion app'],
-        ['traefik-stack',         'traefik + TM one-command installer'],
+        ['traefik-manager',       'web UI + mobile app + bash installer'],
         ['ntfy-adapter',          'ntfy → homepage widget bridge'],
         ['jellyfin-widget-proxy', 'jellyfin data proxy for dashboards'],
         ['gatekeeper',            'self-hosted OIDC + ForwardAuth server'],
@@ -105,8 +102,6 @@
       if (!arg) { warn('usage: open <project-name>'); return; }
       const slugMap = {
         'traefik-manager': 'traefik-manager',
-        'traefik-manager-mobile': 'traefik-manager-mobile',
-        'traefik-stack': 'traefik-stack',
         'ntfy-adapter': 'ntfy-adapter',
         'jellyfin-widget-proxy': 'jellyfin-widget-proxy',
         'gatekeeper': 'gatekeeper',
@@ -162,7 +157,7 @@
         ['Packages', '312 (dpkg)'],
         ['Terminal', 'xyzlab.dev/terminal'],
         ['', ''],
-        ['Projects', '<span class="term-accent">6</span> open source'],
+        ['Projects', '<span class="term-accent">4</span> open source'],
         ['Stars', `<span class="term-accent">${document.querySelector('[data-stat="stars"]')?.textContent || '368'}★</span>`],
         ['', ''],
         ['', '<span style="display:inline-flex;gap:4px">' +
